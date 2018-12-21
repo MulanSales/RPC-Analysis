@@ -1,0 +1,165 @@
+syntax = "proto3";
+
+package messages_struct;
+
+// python -m grpc_tools.protoc -I./protos --python_out=. --grpc_python_out=. ./protos/messages_struct.proto
+
+// A definição dos serviços
+service Services {
+  
+  rpc AddTwoIntValues(AddRequest) returns (AddResult) {}
+
+  rpc NoArgument_NoReturn(Empty) returns (Empty) {}
+
+  rpc OneLongArgument_OneLongReturn(Long) returns (Long) {}
+
+  rpc GetMiddleArrayValue(ItemQuery) returns (ItemResponse) {}
+
+  rpc GetCountry_PersonPhone(Person) returns (Country) {}
+
+  rpc EightLongsArguments_OneLongReturn(RealLong) returns (Long) {}
+
+  rpc OneStringArgument_ReverseStringReturn(String) returns (String) {}
+
+  rpc OneStringArgument_ArrayReturn(String) returns (StringArray) {}
+
+  rpc ThreeDoubleArgument_DoubleReturn(RealDouble) returns (Double) {}
+
+  rpc AddTwoIntValues_SignedInt(AddRequest_Signed) returns (AddResponse_Signed) {}
+
+  rpc AddTwoIntValues_FixedInt(AddRequest_Fixed) returns (AddResponse_Fixed) {}
+
+  rpc BinarySearch(Tuple) returns (Boolean) {}
+
+  rpc OneLongArgument_OneOf_OneLongReturn(OneofLong) returns (Long) {}
+
+  rpc SetHashFunction(HashFunction) returns (Hash) {}
+
+}
+
+message AddRequest {
+  int32 a = 1;
+  int32 b = 2;
+}
+
+message AddResult {
+  int32 c = 1;
+}
+
+message Empty{
+
+}
+
+message Long{
+  int64 a = 1;
+}
+
+message ItemQuery{
+  repeated int32 i = 1;
+}
+
+message ItemResponse{
+  int32 r = 1;
+}
+
+message Person{
+  string name = 1;
+  int32 age = 2;
+  Phone phone = 3;
+}
+
+message Phone{
+  int32 code = 1;
+  int32 ddd = 2;
+  int64 number = 3;
+}
+
+message Country{
+  string name = 1;
+}
+
+message RealLong{
+  int64 a = 1;
+  int64 b = 2;
+  int64 c = 3;
+  int64 d = 4;
+  int64 e = 5;
+  int64 f = 6;
+  int64 g = 7;
+  int64 h = 8;
+}
+
+message Double{
+  double a = 1;
+}
+
+message RealDouble{
+  double a = 1;
+  double b = 2;
+  double c = 3;
+}
+
+message StringArray{
+  repeated string array = 1;
+}
+
+message String{
+  string name = 1;
+}
+
+message Tuple{
+  repeated int32 a = 1;
+  int32 b = 2;
+}
+
+message Boolean{
+  bool a = 1;
+}
+
+message OneofLong {
+  oneof long_oneof{
+    int64 a = 1;
+    int64 b = 2;
+    int64 c = 3;
+    int64 d = 4;
+    int64 e = 5;
+    int64 f = 6;
+    int64 g = 7;
+    int64 h = 8;
+  }
+}
+
+message AddRequest_Signed{
+  sint32 a = 1;
+  sint32 b = 2;
+}
+
+message AddResponse_Signed{
+  sint32 a = 1;
+}
+
+message AddRequest_Fixed{
+  fixed32 a = 1;
+  fixed32 b = 2;
+}
+
+message AddResponse_Fixed{
+  fixed32 a = 1;
+}
+
+message Hash{
+  message Algorithm{
+    string name = 1;
+    int32 output_size = 2;
+    int32 block_size = 3;
+  }
+
+  repeated Algorithm algorithms = 1;
+  int32 intern_size = 2; 
+  int32 rounds = 3;
+
+}
+
+message HashFunction{
+  map<string, Hash> cryp_hashes = 1;
+}
